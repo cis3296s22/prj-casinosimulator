@@ -27,7 +27,9 @@ public class MainMenuView extends JFrame {
     public static String difficulty;
     private JLabel background;
     private JLabel blackjackMenu;
+    private JLabel randnumMenu;
     private JLabel slotMenu;
+    private JLabel randnumText;
     private JLabel blackjackText;
     private JLabel slotText;
     private JLabel saveButton;
@@ -82,9 +84,16 @@ public class MainMenuView extends JFrame {
         //slot machine text
         slotText = new JLabel("Slot Machine");
         slotText.setForeground(Color.WHITE);
-        slotText.setBounds(142, 215, 110, 50);
+        slotText.setBounds(146, 215, 110, 50);
         slotText.setFont(new Font("Dialog", Font.BOLD, 16));
         slotText.setVisible(false);
+
+        //randnum label
+        randnumText = new JLabel("Random Number");
+        randnumText.setForeground(Color.WHITE);
+        randnumText.setBounds(270, 560, 130, 50);
+        randnumText.setFont(new Font("Dialog", Font.BOLD, 16));
+        randnumText.setVisible(false);
 
         //save text
         saveText = new JLabel("Save");
@@ -212,6 +221,42 @@ public class MainMenuView extends JFrame {
             }
         });
 
+        //randnum code
+        //Cards when clicked now start randnum game
+        randnumMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                gamemode = gamemodeSelect.getItemAt(gamemodeSelect.getSelectedIndex());
+                difficulty = difficultySelect.getItemAt(difficultySelect.getSelectedIndex());
+                if(MainMenuModel.getMoney() < 5 && gamemode == "Simulated Casino") { //if player has no money and wants to play simulated casino, add 100 and notify
+                    MainMenuModel.addMoney();
+                    infoBox("$100 has been added", "You Ran Out of Money!");
+                    setVisible(false);
+                    menuModel.startRandnum();
+                }
+                else {
+                    gamemode = gamemodeSelect.getItemAt(gamemodeSelect.getSelectedIndex());
+                    difficulty = difficultySelect.getItemAt(difficultySelect.getSelectedIndex());
+                    setVisible(false);
+                    menuModel.startRandnum();
+                }
+            }
+        });
+
+        //code for rollover effect on randnum card image
+        randnumMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                randnumText.setVisible(true);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                randnumText.setVisible(false);
+            }
+        });
         //blackjack code
         //Cards when clicked now start blackjack game
         blackjackMenu.addMouseListener(new MouseAdapter() {
@@ -304,6 +349,7 @@ public class MainMenuView extends JFrame {
         background.add(gamemodeTxt);
         background.add(blackjackText);
         background.add(slotText);
+        background.add(randnumText);
         background.add(saveText);
         background.add(helpText);
         background.add(difficultyText);
@@ -449,6 +495,17 @@ public class MainMenuView extends JFrame {
         catch (Exception e) { System.out.println("Cannot load background image!"); }
         background = new JLabel(new ImageIcon(img));
         background.setBounds(0, 0, 750, 700);
+
+        //load Random Number Icon
+        try {
+            img = ImageIO.read(new File(path + "/Assets/MainMenu/RandnumMenu.png"));
+        } catch (Exception e) {
+            System.out.println("Cannot load RandnumMenu image!");
+        }
+        randnumMenu = new JLabel(new ImageIcon(img));
+        randnumMenu.setBounds(250, 420, 150, 150);
+        background.add(randnumMenu);
+
 
         //load Blackjack Icon
         try {

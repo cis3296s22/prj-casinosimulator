@@ -13,6 +13,8 @@ public class MainMenuModel {
     private SlotModel slotModel;
     private BlackjackModel blackjackModel;
 
+    private RandnumModel randnumModel;
+
     /**
      * Stores money for the player
      */
@@ -54,6 +56,10 @@ public class MainMenuModel {
      * starts blackjack game
      */
     public void startBlackjack() { blackjackModel = new BlackjackModel(this, money); }
+
+    public void startRandnum() {
+        randnumModel = new RandnumModel(this, money);
+    }
 
     /**
      * returns amount of money player has

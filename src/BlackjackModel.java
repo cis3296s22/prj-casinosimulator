@@ -144,7 +144,7 @@ public class BlackjackModel {
     }
 
     /**
-     * playerHit method.
+     * playerHit method.Mark
      * The player is dealt another card from the deck; checks if the player won.
      */
     public void playerHit() {
