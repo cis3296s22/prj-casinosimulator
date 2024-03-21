@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class BlackjackTest {
     public MainMenuModel mainMenuModel;
